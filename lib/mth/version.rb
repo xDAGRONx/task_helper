@@ -1,3 +1,3 @@
-module Mth
+module MTH
   VERSION = "0.0.1"
 end

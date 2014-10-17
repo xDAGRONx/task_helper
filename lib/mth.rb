@@ -1,5 +1,5 @@
 require "mth/version"
 
-module Mth
+module MTH
   # Your code goes here...
 end

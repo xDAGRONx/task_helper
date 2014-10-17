@@ -5,7 +5,7 @@ require 'mth/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "mth"
-  spec.version       = Mth::VERSION
+  spec.version       = MTH::VERSION
   spec.authors       = ["JC Wilcox"]
   spec.email         = ["84jwilcox@gmail.com"]
   spec.summary       = %q{Ruby wrapper for the MyTaskHelper.com API}

@@ -1,4 +1,4 @@
-# Mth
+# MTH
 
 TODO: Write a gem description
 
