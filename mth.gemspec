@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Mth::VERSION
   spec.authors       = ["JC Wilcox"]
   spec.email         = ["84jwilcox@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Ruby wrapper for the MyTaskHelper.com API}
+  spec.description   = %q{Offers a clean Ruby interface for interacting with select MyTaskHelper resources.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
