@@ -24,7 +24,7 @@ module MTH
         @time = Time.now
         if expired? || !@result
           set_end_time
-          @result = HTTParty.get(@route, @params).parsed_response
+          @result = HTTParty.get(@route, body: @params).parsed_response
         else
           @result
         end

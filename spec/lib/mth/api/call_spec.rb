@@ -19,7 +19,7 @@ describe MTH::API::Call do
       it 'should replace the default key' do
         MTH::API.rest_api_key = 'hello'
         expect(HTTParty).to receive(:get)
-          .with(anything, key).and_return(response)
+          .with(anything, body: key).and_return(response)
         subject.run
         MTH::API.rest_api_key = nil
       end
@@ -31,7 +31,7 @@ describe MTH::API::Call do
       it 'should attempt to use the default' do
         MTH::API.rest_api_key = 'hello'
         expect(HTTParty).to receive(:get)
-          .with(anything, { rest_api_key: 'hello' }).and_return(response)
+          .with(anything, body: { rest_api_key: 'hello' }).and_return(response)
         subject.run
         MTH::API.rest_api_key = nil
       end
@@ -54,7 +54,7 @@ describe MTH::API::Call do
 
     it 'should make a request to the given route at mytaskhelper.com' do
       expect(HTTParty).to receive(:get)
-        .with('https://mytaskhelper.com/hello', { rest_api_key: 'foobar' })
+        .with('https://mytaskhelper.com/hello', body: { rest_api_key: 'foobar' })
         .and_return(response)
       subject.run
     end
