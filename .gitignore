@@ -5,7 +5,7 @@
 /InstalledFiles
 /pkg/
 /spec/reports/
-/spec/fixtures/
+/spec/support/fixtures/*.json
 /test/tmp/
 /test/version_tmp/
 /tmp/
