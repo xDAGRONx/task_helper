@@ -9,7 +9,7 @@ describe MTH::Database do
 
     it 'should return databases corresponding to the API response' do
       expect(described_class.all.map(&:to_h).to_json)
-        .to eq(MTH::API.get(route: 'apps.json')['databases'].to_json)
+        .to eq(FixtureParser.databases.to_json)
     end
   end
 
@@ -48,7 +48,7 @@ describe MTH::Database do
 
   it 'should define getters for data members' do
     db = described_class.all.sample
-    db_hash = MTH::API.get(route: "apps/#{db.id}.json")['database']
+    db_hash = FixtureParser.database(db.id)
     %w(name dtypes_count entities_count properties_count).each do |member|
       expect(db.public_send(member)).to eq(db_hash[member])
     end
@@ -57,7 +57,7 @@ describe MTH::Database do
   describe '#created_at' do
     it 'should return the parsed time of created_at' do
       db = described_class.all.sample
-      db_hash = MTH::API.get(route: "apps/#{db.id}.json")['database']
+        db_hash = FixtureParser.database(db.id)
       expect(db.created_at).to eq(Time.parse(db_hash['created_at']))
     end
   end
@@ -65,7 +65,7 @@ describe MTH::Database do
   describe '#updated_at' do
     it 'should return the parsed time of updated_at' do
       db = described_class.all.sample
-      db_hash = MTH::API.get(route: "apps/#{db.id}.json")['database']
+        db_hash = FixtureParser.database(db.id)
       expect(db.updated_at).to eq(Time.parse(db_hash['updated_at']))
     end
   end
