@@ -21,5 +21,10 @@ module MTH
         new response['database'] if response['database']
       end
     end
+
+    def forms
+      @forms ||= Form.get(route: "apps/#{id}/entities.json")['forms']
+        .map { |form| Form.new(form) }
+    end
   end
 end

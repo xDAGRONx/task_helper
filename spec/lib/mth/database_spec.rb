@@ -46,18 +46,22 @@ describe MTH::Database do
     end
   end
 
-  it 'should define getters for data members' do
-    db = described_class.all.sample
-    db_hash = FixtureParser.database(db.id)
-    %w(name dtypes_count entities_count properties_count).each do |member|
-      expect(db.public_send(member)).to eq(db_hash[member])
+  describe 'data members' do
+    described_class.data_members.each do |m|
+      describe "##{m}" do
+        it "should return the value of #{m}" do
+          db = described_class.new(FixtureParser.databases.sample)
+          data = FixtureParser.pretty(:database, db.id)
+          expect(db.public_send(m)).to eq(data.send(m))
+        end
+      end
     end
   end
 
   describe '#created_at' do
     it 'should return the parsed time of created_at' do
       db = described_class.all.sample
-        db_hash = FixtureParser.database(db.id)
+      db_hash = FixtureParser.database(db.id)
       expect(db.created_at).to eq(Time.parse(db_hash['created_at']))
     end
   end
@@ -65,8 +69,17 @@ describe MTH::Database do
   describe '#updated_at' do
     it 'should return the parsed time of updated_at' do
       db = described_class.all.sample
-        db_hash = FixtureParser.database(db.id)
+      db_hash = FixtureParser.database(db.id)
       expect(db.updated_at).to eq(Time.parse(db_hash['updated_at']))
+    end
+  end
+
+  describe '#forms' do
+    it 'should return all forms associated with the database' do
+      db = described_class.all.sample
+      forms = FixtureParser.pretty(:forms, db.id)
+      expect(db.forms.all? { |f| f.kind_of?(MTH::Form) }).to be(true)
+      expect(db.forms).to match_array(forms)
     end
   end
 end

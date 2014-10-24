@@ -1,5 +1,10 @@
 module MTH
   class Base
+    class << self
+      attr_accessor :data_members
+      protected :data_members=
+    end
+
     def initialize(args = {})
       @info = {}
       (args || {}).each_pair do |k, v|
@@ -37,11 +42,13 @@ module MTH
 
     def self.inherited(base)
       base.extend(API)
+      base.data_members = %i(id)
     end
 
     def self.data_member(*names)
       names.each do |name|
         define_method(name) { fetch(name.to_sym) }
+        data_members << name.to_sym
       end
     end
   end
