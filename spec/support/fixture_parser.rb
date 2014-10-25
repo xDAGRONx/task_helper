@@ -9,18 +9,36 @@ module FixtureParser
     databases.find { |db| db['id'] == id }
   end
 
-  def forms(database = nil)
-    if database
-      parse_file("databases/#{database}/forms")['forms']
-    else
+  def forms(database_id = nil)
+    if database_id.nil?
       databases.flat_map do |db|
         parse_file("databases/#{db['id']}/forms")['forms']
       end
+    elsif database(database_id)
+      parse_file("databases/#{database_id}/forms")['forms']
+    else
+      []
     end
   end
 
-  def form(id, database = nil)
-    forms(database).find { |f| f['id'] == id }
+  def form(id, database_id = nil)
+    forms(database_id).find { |f| f['id'] == id }
+  end
+
+  def fields(form_id = nil, database_id = nil)
+    if form_id.nil?
+      forms(database_id).flat_map do |form|
+        parse_file("databases/#{form['app_id']}/forms/#{form['id']}/fields")['fields']
+      end
+    elsif form = form(form_id, database_id)
+      parse_file("databases/#{form['app_id']}/forms/#{form_id}/fields")['fields']
+    else
+      []
+    end
+  end
+
+  def field(id, form_id = nil, database_id = nil)
+    fields(form_id, database_id).find { |f| f['id'] == id }
   end
 
   def pretty(method_name, *args)

@@ -33,6 +33,13 @@ class FakeMTH < Sinatra::Base
     { 'forms' => result }.to_json if result
   end
 
+  get '/apps/:db_id/entities/:form_id/properties.json' do
+    result = FixtureParser.fields(params[:form_id], params[:db_id])
+    content_type :json
+    status 200
+    { 'fields' => result }.to_json if result
+  end
+
   private
 
   def string_params

@@ -49,6 +49,14 @@ describe MTH::Form do
     end
   end
 
+  describe '#fields' do
+    it 'should return the associated fields' do
+      form = described_class.new(FixtureParser.forms.sample)
+      expect(form.fields.all? { |f| f.kind_of?(MTH::Field) }).to be(true)
+      expect(form.fields.all? { |f| f.entity_id == form.id }).to be(true)
+    end
+  end
+
   describe 'data members' do
     described_class.data_members.each do |m|
       describe "##{m}" do

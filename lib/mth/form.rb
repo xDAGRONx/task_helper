@@ -23,5 +23,11 @@ module MTH
     def database
       @database ||= Database.find(app_id)
     end
+
+    def fields
+      @fields ||= Field.get(
+        route: "apps/#{app_id}/entities/#{id}/properties.json")['fields']
+          .map { |field| Field.new(field) }
+    end
   end
 end
