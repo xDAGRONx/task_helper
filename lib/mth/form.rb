@@ -29,5 +29,24 @@ module MTH
         route: "apps/#{app_id}/entities/#{id}/properties.json")['fields']
           .map { |field| Field.new(field) }
     end
+
+    def records
+      if fields.any?
+        @records ||= (1..page_count).lazy.flat_map do |page|
+          record_page(page).lazy.map { |record| Record.new(record) }
+        end
+      end
+    end
+
+    private
+
+    def page_count
+      database.dtypes_count / per_page + 1
+    end
+
+    def record_page(page = 1)
+      Record.get(route: "apps/#{app_id}/dtypes/entity/#{id}.json",
+                 params: { page: page })['records']
+    end
   end
 end

@@ -40,6 +40,11 @@ class FakeMTH < Sinatra::Base
     { 'fields' => result }.to_json if result
   end
 
+  get '/apps/:db_id/dtypes/entity/:form_id.json' do
+    json_response(200, "databases/#{params[:db_id]}/forms/" \
+      "#{params[:form_id]}/records/#{params[:page]}")
+  end
+
   private
 
   def string_params

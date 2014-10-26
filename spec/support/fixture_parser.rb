@@ -41,6 +41,10 @@ module FixtureParser
     fields(form_id, database_id).find { |f| f['id'] == id }
   end
 
+  def records(form_id, database_id, page = 1)
+    parse_file("databases/#{database_id}/forms/#{form_id}/records/#{page}")['records']
+  end
+
   def pretty(method_name, *args)
     case result = public_send(method_name, *args)
     when Array

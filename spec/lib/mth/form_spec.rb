@@ -57,6 +57,31 @@ describe MTH::Form do
     end
   end
 
+  describe '#records' do
+    context 'form has no fields' do
+      it 'should return nil' do
+        if form = described_class.all.find { |f| f.fields.none? }
+          expect(form.records).to be(nil)
+        else
+          expect(MTH::Field).to receive(:get).and_return('fields' => [])
+          expect(described_class.new.records).to be(nil)
+        end
+      end
+    end
+
+    context 'form has at least one field' do
+      it 'should return a lazy enumerator containing the associated records' do
+        if form = described_class.all.find { |f| f.fields.any? }
+          expect(form.records).to be_a(Enumerator::Lazy)
+          expect(form.records.first).to be_a(MTH::Record)
+          expect(form.records.first.entity_id).to eq(form.id)
+        else
+          raise 'No forms with fields found'.inspect
+        end
+      end
+    end
+  end
+
   describe 'data members' do
     described_class.data_members.each do |m|
       describe "##{m}" do
