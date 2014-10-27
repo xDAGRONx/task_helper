@@ -1,6 +1,14 @@
 # MTH
 
-TODO: Write a gem description
+Offers a clean Ruby interface for interacting with
+the MyTaskHelper.com API.
+
+Includes wrapper classes for Database, Form, Field, and Record.
+These classes offer shorthand methods for common API calls, as
+well as convenient methods to read the data returned from the API.
+
+Also includes an `API` module, which can be used to directly access
+any available route in the API.
 
 ## Installation
 
