@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'webmock/rspec'
-require 'mth'
+require 'task_helper'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
