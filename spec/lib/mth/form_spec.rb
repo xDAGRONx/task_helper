@@ -1,6 +1,6 @@
-describe MTH::Form do
-  before(:all) { MTH::API.rest_api_key = 'foobar' }
-  after(:all) { MTH::API.rest_api_key = nil }
+describe TaskHelper::Form do
+  before(:all) { TaskHelper::API.rest_api_key = 'foobar' }
+  after(:all) { TaskHelper::API.rest_api_key = nil }
 
   describe '.all' do
     it 'should return all forms for all databases' do
@@ -44,7 +44,7 @@ describe MTH::Form do
   describe '#database' do
     it 'should return the database associated with the form' do
       form = described_class.new(FixtureParser.forms.sample)
-      expect(form.database).to be_a(MTH::Database)
+      expect(form.database).to be_a(TaskHelper::Database)
       expect(form.database.id).to eq(form.app_id)
     end
   end
@@ -52,7 +52,7 @@ describe MTH::Form do
   describe '#fields' do
     it 'should return the associated fields' do
       form = described_class.new(FixtureParser.forms.sample)
-      expect(form.fields.all? { |f| f.kind_of?(MTH::Field) }).to be(true)
+      expect(form.fields.all? { |f| f.kind_of?(TaskHelper::Field) }).to be(true)
       expect(form.fields.all? { |f| f.entity_id == form.id }).to be(true)
     end
   end
@@ -63,7 +63,7 @@ describe MTH::Form do
         if form = described_class.all.find { |f| f.fields.none? }
           expect(form.records).to be(nil)
         else
-          expect(MTH::Field).to receive(:get).and_return('fields' => [])
+          expect(TaskHelper::Field).to receive(:get).and_return('fields' => [])
           expect(described_class.new.records).to be(nil)
         end
       end
@@ -73,7 +73,7 @@ describe MTH::Form do
       it 'should return a lazy enumerator containing the associated records' do
         if form = described_class.all.find { |f| f.fields.any? }
           expect(form.records).to be_a(Enumerator::Lazy)
-          expect(form.records.first).to be_a(MTH::Record)
+          expect(form.records.first).to be_a(TaskHelper::Record)
           expect(form.records.first.entity_id).to eq(form.id)
         else
           raise 'No forms with fields found'.inspect

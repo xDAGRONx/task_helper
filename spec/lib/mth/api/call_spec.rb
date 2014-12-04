@@ -1,4 +1,4 @@
-describe MTH::API::Call do
+describe TaskHelper::API::Call do
   let(:key) { { rest_api_key: 'foobar' } }
   let(:response) { double(parsed_response: [{ 'a' => 1 }]) }
 
@@ -17,11 +17,11 @@ describe MTH::API::Call do
       end
 
       it 'should replace the default key' do
-        MTH::API.rest_api_key = 'hello'
+        TaskHelper::API.rest_api_key = 'hello'
         expect(HTTParty).to receive(:get)
           .with(anything, query: key).and_return(response)
         subject.run
-        MTH::API.rest_api_key = nil
+        TaskHelper::API.rest_api_key = nil
       end
     end
 
@@ -29,22 +29,22 @@ describe MTH::API::Call do
       subject { described_class.new(route: 'hello') }
 
       it 'should attempt to use the default' do
-        MTH::API.rest_api_key = 'hello'
+        TaskHelper::API.rest_api_key = 'hello'
         expect(HTTParty).to receive(:get)
           .with(anything, query: { rest_api_key: 'hello' }).and_return(response)
         subject.run
-        MTH::API.rest_api_key = nil
+        TaskHelper::API.rest_api_key = nil
       end
 
       it 'should raise an exception if no default is set' do
-        expect { subject }.to raise_exception(MTH::API::Call::MissingAPIKey)
+        expect { subject }.to raise_exception(TaskHelper::API::Call::MissingAPIKey)
       end
     end
   end
 
   describe '#run' do
-    before(:all) { MTH::API.rest_api_key = 'foobar' }
-    after(:all) { MTH::API.rest_api_key = nil }
+    before(:all) { TaskHelper::API.rest_api_key = 'foobar' }
+    after(:all) { TaskHelper::API.rest_api_key = nil }
 
     subject { described_class.new(route: 'hello') }
 
@@ -88,8 +88,8 @@ describe MTH::API::Call do
   end
 
   describe '#expired?' do
-    before(:all) { MTH::API.rest_api_key = 'foobar' }
-    after(:all) { MTH::API.rest_api_key = nil }
+    before(:all) { TaskHelper::API.rest_api_key = 'foobar' }
+    after(:all) { TaskHelper::API.rest_api_key = nil }
 
     context 'request timed out' do
       it 'shoud return false' do
@@ -107,8 +107,8 @@ describe MTH::API::Call do
   end
 
   describe '#==' do
-    before(:all) { MTH::API.rest_api_key = 'foobar' }
-    after(:all) { MTH::API.rest_api_key = nil }
+    before(:all) { TaskHelper::API.rest_api_key = 'foobar' }
+    after(:all) { TaskHelper::API.rest_api_key = nil }
 
     subject { described_class.new(route: 'hello', params: { a: 1 }) }
 

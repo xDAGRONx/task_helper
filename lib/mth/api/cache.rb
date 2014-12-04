@@ -1,4 +1,4 @@
-module MTH
+module TaskHelper
   module API
     class Cache
       def initialize(limit: 10)

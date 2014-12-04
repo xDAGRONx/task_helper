@@ -1,4 +1,4 @@
-# MTH
+# TaskHelper
 
 Offers a clean Ruby interface for interacting with
 the MyTaskHelper.com API.

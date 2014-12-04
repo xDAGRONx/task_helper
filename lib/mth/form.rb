@@ -1,4 +1,4 @@
-module MTH
+module TaskHelper
   class Form < Base
     data_member :app_id, :name, :desc, :post_action, :position, :sort_by, :asc,
                 :per_page, :allow_delete, :new_widget, :records_widget,

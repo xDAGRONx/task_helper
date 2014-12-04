@@ -1,4 +1,4 @@
-module MTH
+module TaskHelper
   module API
     BASE_URL = 'https://mytaskhelper.com'
 

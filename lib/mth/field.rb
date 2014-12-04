@@ -1,4 +1,4 @@
-module MTH
+module TaskHelper
   class Field < Base
     data_member :entity_id, :name, :desc, :type_name, :default,
                 :validate_options, :position, :visible, :size, :cols,

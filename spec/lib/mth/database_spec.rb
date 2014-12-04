@@ -1,6 +1,6 @@
-describe MTH::Database do
-  before(:all) { MTH::API.rest_api_key = 'foobar' }
-  after(:all) { MTH::API.rest_api_key = nil }
+describe TaskHelper::Database do
+  before(:all) { TaskHelper::API.rest_api_key = 'foobar' }
+  after(:all) { TaskHelper::API.rest_api_key = nil }
 
   describe '.all' do
     it 'should return an array of databases' do
@@ -78,7 +78,7 @@ describe MTH::Database do
     it 'should return all forms associated with the database' do
       db = described_class.all.sample
       forms = FixtureParser.pretty(:forms, db.id)
-      expect(db.forms.all? { |f| f.kind_of?(MTH::Form) }).to be(true)
+      expect(db.forms.all? { |f| f.kind_of?(TaskHelper::Form) }).to be(true)
       expect(db.forms).to match_array(forms)
     end
   end

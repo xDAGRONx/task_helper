@@ -1,4 +1,4 @@
-module MTH
+module TaskHelper
   class Base
     class << self
       attr_accessor :data_members

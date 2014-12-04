@@ -1,8 +1,8 @@
-describe MTH::Record do
-  before(:all) { MTH::API.rest_api_key = 'foobar' }
-  after(:all) { MTH::API.rest_api_key = nil }
+describe TaskHelper::Record do
+  before(:all) { TaskHelper::API.rest_api_key = 'foobar' }
+  after(:all) { TaskHelper::API.rest_api_key = nil }
 
-  let(:form) { MTH::Form.all.find(:form_with_fields_needed) { |f| f.fields.any? } }
+  let(:form) { TaskHelper::Form.all.find(:form_with_fields_needed) { |f| f.fields.any? } }
   let(:data) { FixtureParser.pretty(:records, form.id, form.app_id).sample }
   subject { described_class.new(data.to_h) }
 

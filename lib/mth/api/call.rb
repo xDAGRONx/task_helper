@@ -1,4 +1,4 @@
-module MTH
+module TaskHelper
   module API
     class Call
       MissingAPIKey = Class.new(StandardError)
@@ -11,7 +11,7 @@ module MTH
         if @params[:rest_api_key].nil?
           raise MissingAPIKey, "Rest API key not provided. " \
             "Either pass it as a param or use " \
-            "'MTH::API.rest_api_key = key' " \
+            "'TaskHelper::API.rest_api_key = key' " \
             "to set it for all future calls."
         end
         @route = "#{BASE_URL}/#{route}"

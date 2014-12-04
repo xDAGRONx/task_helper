@@ -10,6 +10,6 @@ require 'mth/field'
 require 'mth/form'
 require 'mth/database'
 
-module MTH
+module TaskHelper
   # Your code goes here...
 end

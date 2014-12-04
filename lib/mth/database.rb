@@ -1,4 +1,4 @@
-module MTH
+module TaskHelper
   class Database < Base
     data_member :name, :dtypes_count, :entities_count, :properties_count
 

@@ -1,3 +1,3 @@
-module MTH
+module TaskHelper
   VERSION = "0.0.1"
 end

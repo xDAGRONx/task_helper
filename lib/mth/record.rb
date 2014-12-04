@@ -1,4 +1,4 @@
-module MTH
+module TaskHelper
   class Record < Base
     data_member :app_id, :entity_id, :approved, :values
 

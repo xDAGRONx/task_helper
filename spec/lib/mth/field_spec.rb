@@ -1,11 +1,11 @@
-describe MTH::Field do
-  before(:all) { MTH::API.rest_api_key = 'foobar' }
-  after(:all) { MTH::API.rest_api_key = nil }
+describe TaskHelper::Field do
+  before(:all) { TaskHelper::API.rest_api_key = 'foobar' }
+  after(:all) { TaskHelper::API.rest_api_key = nil }
 
   describe '#form' do
     it 'should return the associated form' do
       field = described_class.new(FixtureParser.fields.sample)
-      expect(field.form).to be_a(MTH::Form)
+      expect(field.form).to be_a(TaskHelper::Form)
       expect(field.form.id).to eq(field.entity_id)
     end
   end
