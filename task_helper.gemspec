@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'task_helper/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "mth"
+  spec.name          = "task_helper"
   spec.version       = TaskHelper::VERSION
   spec.authors       = ["JC Wilcox"]
   spec.email         = ["84jwilcox@gmail.com"]
