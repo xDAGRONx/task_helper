@@ -188,6 +188,53 @@ and flattens the results into an Enumerator of `TaskHelper::Record`s.
     records.first(3) # GET 'apps/foobar123/dtypes/entity/baz456.json?page=1'
     => [#<TaskHelper::Record entity_id: 'baz456'>, ...]
 
+#### Field
+
+This class offers functionality for interacting with fields
+in MyTaskHelper.
+
+##### API Access
+
+Presently, `TaskHelper::Field`s can only be retrieved through their
+associated form. (see `TaskHelper::Form#fields` above)
+
+##### Attributes
+
+A field object contains the following attributes:
+
+* id
+* entity_id
+* name
+* desc
+* type_name
+* default
+* validate_options
+* position
+* visible
+* size
+* cols
+* rows
+* initial
+* pretty_type_name
+* formula_field
+* formula_operation
+* start_from
+* step
+
+##### Relations
+
+`TaskHelper::Field` objects respond to the `.form` method, which returns
+the form associated with the field.
+
+    params = { database: 'foobar123', form: 'baz456' }
+    form = TaskHelper::Form.find(params)
+    => #<TaskHelper::Form id: 'baz456'>
+    field = form.fields.first
+    => #<TaskHelper::Field entity_id: 'baz456'>
+    field.form
+    => #<TaskHelper::Form id: 'baz456'>
+
+
 ## Contributing
 
 1. Fork it ( http://github.com/xDAGRONx/task_helper/fork )
