@@ -234,6 +234,79 @@ the form associated with the field.
     field.form
     => #<TaskHelper::Form id: 'baz456'>
 
+#### Record
+
+This class offers functionality for interacting with form records
+in MyTaskHelper.
+
+##### API Access
+
+Presently, `TaskHelper::Records`s can only be retrieved through their
+associated form. (see `TaskHelper::Form#records` above)
+
+##### Attributes
+
+A record object contains the following attributes:
+
+* id
+* app_id
+* entity_id
+* approved
+* values
+* created_at
+* updated_at
+
+##### Accessing Values
+
+`TaskHelper::Record#values` returns a hash, with the ids of fields associated
+with the record's form as keys, and the values of those fields for the record
+as values.
+
+    params = { database: 'foobar123', form: 'baz456' }
+    form = TaskHelper::Form.find(params)
+    => #<TaskHelper::Form id: 'baz456'>
+    record = form.records.first
+    => #<TaskHelper::Record entity_id: 'baz456'>
+    record.values
+    => { 'abc123' => 'Yes', 'def456' => false, 'ghi789' => 17 }
+
+For convenience, `TaskHelper::Record` objects offer a `.pretty_values` method,
+which parses the values hash, and replaces the field ids with field names.
+
+    form.fields
+    => [#<TaskHelper::Field id: 'abc123' name: 'Winner?'>, ...]
+    record.pretty_values
+    => { 'Winner?' => 'Yes', 'Jackpot?' => false, 'Prize' => 17 }
+
+The value of a given field can be also be accessed by `TaskHelper::Record#[]`
+which accepts a field name, and returns the value of that field.
+
+    record['Prize']
+    => 17
+
+##### Relations
+
+`TaskHelper::Record` objects respond to the `.form` method, which returns
+the form associated with the record.
+
+    params = { database: 'foobar123', form: 'baz456' }
+    form = TaskHelper::Form.find(params)
+    => #<TaskHelper::Form id: 'baz456'>
+    record = form.records.first
+    => #<TaskHelper::Record entity_id: 'baz456'>
+    record.form
+    => #<TaskHelper::Form id: 'baz456'>
+
+`TaskHelper::Record` objects also respond to the `.fields` method, which
+returns and array of fields associated with the record's form.
+
+    params = { database: 'foobar123', form: 'baz456' }
+    form = TaskHelper::Form.find(params)
+    => #<TaskHelper::Form id: 'baz456'>
+    record = form.records.first
+    => #<TaskHelper::Record entity_id: 'baz456'>
+    record.fields
+    => [#<TaskHelper::Field entity_id: 'baz456'>, ...]
 
 ## Contributing
 
