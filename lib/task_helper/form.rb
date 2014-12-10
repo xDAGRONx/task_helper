@@ -5,7 +5,7 @@ module TaskHelper
                 :target_page, :allow_database, :send_emails, :settings
 
     def self.all
-      Database.all.flat_map { |db| db.forms }
+      Database.all.lazy.flat_map { |db| db.forms }
     end
 
     def self.find_by(search)

@@ -9,6 +9,10 @@ describe TaskHelper::Form do
         .to be(true)
       expect(described_class.all).to match_array(forms)
     end
+
+    it 'should use a Lazy Enumerator' do
+      expect(described_class.all).to be_an(Enumerator::Lazy)
+    end
   end
 
   describe '.find' do
