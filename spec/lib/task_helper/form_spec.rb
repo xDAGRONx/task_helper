@@ -2,6 +2,24 @@ describe TaskHelper::Form do
   before(:all) { TaskHelper::API.rest_api_key = 'foobar' }
   after(:all) { TaskHelper::API.rest_api_key = nil }
 
+  describe '.new' do
+    context 'given an optional database' do
+      it 'should store the database' do
+        db = TaskHelper::Database.all.sample
+        expect(TaskHelper::Database).not_to receive(:find)
+        form = described_class.new(database: db)
+        expect(form.database).to eq(db)
+      end
+    end
+
+    context 'without optional database' do
+      it 'should fetch the database when needed' do
+        expect(TaskHelper::Database).to receive(:find)
+        described_class.new.database
+      end
+    end
+  end
+
   describe '.all' do
     it 'should return all forms for all databases' do
       forms = FixtureParser.pretty(:forms)

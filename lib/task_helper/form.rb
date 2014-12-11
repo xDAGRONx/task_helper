@@ -20,6 +20,11 @@ module TaskHelper
       end
     end
 
+    def initialize(args = {}, database: nil)
+      @database = database
+      super(args)
+    end
+
     def database
       @database ||= Database.find(app_id)
     end
