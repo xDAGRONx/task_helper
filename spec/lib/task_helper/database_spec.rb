@@ -81,5 +81,11 @@ describe TaskHelper::Database do
       expect(db.forms.all? { |f| f.kind_of?(TaskHelper::Form) }).to be(true)
       expect(db.forms).to match_array(forms)
     end
+
+    it "should pre-load the form's database attribute" do
+      db = described_class.all.sample
+      expect(described_class).not_to receive(:find)
+      db.forms.first.database
+    end
   end
 end

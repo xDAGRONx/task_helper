@@ -24,7 +24,7 @@ module TaskHelper
 
     def forms
       @forms ||= Form.get(route: "apps/#{id}/entities.json")['forms']
-        .map { |form| Form.new(form) }
+        .map { |form| Form.new(form, database: self) }
     end
   end
 end
