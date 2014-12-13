@@ -5,6 +5,11 @@ module TaskHelper
                 :rows, :initial, :pretty_type_name, :formula_field,
                 :formula_operation, :start_from, :step
 
+    def initialize(args = {}, form: nil)
+      @form = form
+      super(args)
+    end
+
     def form
       @form ||=
         Database.all.each do |d|

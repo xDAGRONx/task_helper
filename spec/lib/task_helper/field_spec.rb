@@ -2,6 +2,24 @@ describe TaskHelper::Field do
   before(:all) { TaskHelper::API.rest_api_key = 'foobar' }
   after(:all) { TaskHelper::API.rest_api_key = nil }
 
+  describe '.new' do
+    context 'given an optional form' do
+      it 'should store the form' do
+        form = TaskHelper::Form.all.first
+        expect(TaskHelper::Form).not_to receive(:find)
+        field = described_class.new(form: form)
+        expect(field.form).to eq(form)
+      end
+    end
+
+    context 'without optional form' do
+      it 'should fetch the form when needed' do
+        expect(TaskHelper::Form).to receive(:find).at_least(1)
+        described_class.new.form
+      end
+    end
+  end
+
   describe '#form' do
     it 'should return the associated form' do
       field = described_class.new(FixtureParser.fields.sample)
