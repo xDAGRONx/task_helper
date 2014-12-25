@@ -32,7 +32,7 @@ module TaskHelper
     def fields
       @fields ||= Field.get(
         route: "apps/#{app_id}/entities/#{id}/properties.json")['fields']
-          .map { |field| Field.new(field) }
+          .map { |field| Field.new(field, form: self) }
     end
 
     def records

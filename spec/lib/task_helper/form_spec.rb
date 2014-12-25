@@ -77,6 +77,12 @@ describe TaskHelper::Form do
       expect(form.fields.all? { |f| f.kind_of?(TaskHelper::Field) }).to be(true)
       expect(form.fields.all? { |f| f.entity_id == form.id }).to be(true)
     end
+
+    it "should pre-load the fields' form attribute" do
+      form = described_class.all.first
+      expect(described_class).not_to receive(:find)
+      form.fields.first.form
+    end
   end
 
   describe '#records' do
