@@ -2,6 +2,11 @@ module TaskHelper
   class Record < Base
     data_member :app_id, :entity_id, :approved, :values
 
+    def initialize(args = {}, form: nil, **params)
+      @form = form
+      super(args.merge(params))
+    end
+
     def form
       @form ||= Form.find(database: app_id, form: entity_id)
     end

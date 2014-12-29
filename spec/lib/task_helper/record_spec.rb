@@ -6,6 +6,32 @@ describe TaskHelper::Record do
   let(:data) { FixtureParser.pretty(:records, form.id, form.app_id).sample }
   subject { described_class.new(data.to_h) }
 
+  describe '.new' do
+    it 'should pass all params except form to super' do
+      form = TaskHelper::Form.all.first
+      record = described_class.new(app_id: form.app_id, form: form,
+        'entity_id' => form.id)
+      expect(record.app_id).to eq(form.app_id)
+      expect(record.entity_id).to eq(form.id)
+    end
+
+    context 'given an optional form' do
+      it 'should store the form' do
+        form = TaskHelper::Form.all.first
+        expect(TaskHelper::Form).not_to receive(:find)
+        record = described_class.new(form: form)
+        expect(record.form).to eq(form)
+      end
+    end
+
+    context 'without optional form' do
+      it 'should fetch the form when needed' do
+        expect(TaskHelper::Form).to receive(:find).at_least(1)
+        described_class.new.form
+      end
+    end
+  end
+
   describe '#form' do
     it 'should return the associated form' do
       expect(subject.form).to eq(form)
