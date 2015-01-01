@@ -38,7 +38,7 @@ module TaskHelper
     def records
       if fields.any?
         @records ||= (1..page_count).lazy.flat_map do |page|
-          record_page(page).lazy.map { |record| Record.new(record) }
+          record_page(page).lazy.map { |record| Record.new(record, form: self) }
         end
       end
     end
