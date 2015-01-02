@@ -109,9 +109,12 @@ describe TaskHelper::Form do
       end
 
       it "should pre-load the records' form attribute" do
-        form = described_class.all.first
-        expect(described_class).not_to receive(:find)
-        form.records.first.form
+        if form = described_class.all.find { |f| f.fields.any? }
+          expect(described_class).not_to receive(:find)
+          form.records.first.form
+        else
+          raise 'No forms with fields found'.inspect
+        end
       end
     end
   end
