@@ -3,6 +3,14 @@ describe TaskHelper::Form do
   after(:all) { TaskHelper::API.rest_api_key = nil }
 
   describe '.new' do
+    it 'should pass all params except database to super' do
+      db = TaskHelper::Database.all.sample
+      form = described_class.new(app_id: db.id, database: db,
+        'name' => 'foobar')
+      expect(form.app_id).to eq(db.id)
+      expect(form.name).to eq('foobar')
+    end
+
     context 'given an optional database' do
       it 'should store the database' do
         db = TaskHelper::Database.all.sample

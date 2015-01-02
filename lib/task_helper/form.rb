@@ -20,9 +20,9 @@ module TaskHelper
       end
     end
 
-    def initialize(args = {}, database: nil)
+    def initialize(args = {}, database: nil, **params)
       @database = database
-      super(args)
+      super(args.merge(params))
     end
 
     def database
