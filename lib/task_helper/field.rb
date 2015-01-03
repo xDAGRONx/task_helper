@@ -5,9 +5,9 @@ module TaskHelper
                 :rows, :initial, :pretty_type_name, :formula_field,
                 :formula_operation, :start_from, :step
 
-    def initialize(args = {}, form: nil)
+    def initialize(args = {}, form: nil, **params)
       @form = form
-      super(args)
+      super(args.merge(params))
     end
 
     def form

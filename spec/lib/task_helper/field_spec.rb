@@ -3,6 +3,14 @@ describe TaskHelper::Field do
   after(:all) { TaskHelper::API.rest_api_key = nil }
 
   describe '.new' do
+    it 'should pass all params except form to super' do
+      form = TaskHelper::Form.all.first
+      field = described_class.new(name: 'foobar', form: form,
+        'entity_id' => form.id)
+      expect(field.name).to eq('foobar')
+      expect(field.entity_id).to eq(form.id)
+    end
+
     context 'given an optional form' do
       it 'should store the form' do
         form = TaskHelper::Form.all.first
