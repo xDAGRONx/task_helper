@@ -20,5 +20,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake"
-  spec.add_dependency 'httparty', '~> 0.13'
+  spec.add_development_dependency 'rspec', '~> 3.1'
+  spec.add_development_dependency 'sinatra', '~> 1.4'
+  spec.add_development_dependency 'webmock', '~> 1.19'
+  spec.add_runtime_dependency     'httparty', '~> 0.13'
 end
