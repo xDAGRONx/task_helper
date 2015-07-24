@@ -1,13 +1,14 @@
 module TaskHelper
   module API
     class Cache
-      def initialize(limit: 10)
+      def initialize(limit: 0, **call_defaults)
         @limit = limit
+        @call_defaults = call_defaults
         @calls = []
       end
 
       def get(**args)
-        new_call = Call.new(args)
+        new_call = Call.new(@call_defaults.merge(args))
         cached_call = @calls.find { |call| call == new_call }
         if cached_call
           cached_call.run

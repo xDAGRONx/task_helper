@@ -40,6 +40,27 @@ an ActiveRecord like fashion. Each class contains methods for fetching
 objects from the API, readers for attributes of retrieved objects,
 and methods to navigate between related resources.
 
+### Caching
+
+Each model manages a cache of calls to the API that it makes.
+The model's cache has a limit (the number of responses to be cached)
+and a timeout (the number of seconds until an individual response expires).
+By default, limit and timeout are set to zero (no caching). This can be
+changed for each model using `Model::set_cache`.
+
+For example
+
+    TaskHelper::Database.set_cache(limit: 5, timeout: 60)
+
+will cache up to five responses from the API's database resource, for
+up to 60 seconds each. This means, if you call `TashHelper::Database.all`
+10 times in 60 seconds, the gem will only contact the API once. After 60
+seconds, if you ask for all databases again, the cache will be refreshed.
+
+Changing the cache settings for one model does not affect the others.
+So, to cache all responses, each model must be individually configured
+to cache its responses.
+
 #### Database
 
 This class offers functionality to retrieve and interact with databases

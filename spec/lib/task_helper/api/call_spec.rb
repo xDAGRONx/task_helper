@@ -73,8 +73,9 @@ describe TaskHelper::API::Call do
       context 'request has been cached' do
         it 'should return the cached response' do
           expect(HTTParty).to receive(:get).once.and_return(response)
-          result = subject.run
-          expect(subject.run).to eq(result)
+          call = described_class.new(route: 'hello', timeout: 314)
+          result = call.run
+          expect(call.run).to eq(result)
         end
       end
 

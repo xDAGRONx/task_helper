@@ -6,7 +6,7 @@ module TaskHelper
       attr_reader :route, :params, :time
       protected :route, :params
 
-      def initialize(route:, params: {}, timeout: 314, time: Time.now)
+      def initialize(route:, params: {}, timeout: 0, time: Time.now)
         @params = { rest_api_key: API.rest_api_key }.merge(params)
         if @params[:rest_api_key].nil?
           raise MissingAPIKey, "Rest API key not provided. " \
