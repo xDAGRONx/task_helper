@@ -61,7 +61,11 @@ module FixtureParser
   module_function
 
   def parse_file(file_name)
-    JSON.parse(File
-      .open("#{File.dirname(__FILE__)}/fixtures/#{file_name}.json").read)
+    full_name = "#{File.dirname(__FILE__)}/fixtures/#{file_name}.json"
+    if File.exist?(full_name)
+      JSON.parse(File.open(full_name).read)
+    else
+      {}
+    end
   end
 end

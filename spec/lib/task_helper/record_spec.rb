@@ -6,6 +6,21 @@ describe TaskHelper::Record do
   let(:data) { FixtureParser.pretty(:records, form.id, form.app_id).sample }
   subject { described_class.new(data.to_h) }
 
+  describe '::find' do
+    it 'should find the record with the given ID' do
+      record = form.records.first
+      expect(described_class.find(record.id, database_id: form.app_id))
+        .to eq(record)
+    end
+
+    context 'database or record not found' do
+      it 'should return nil' do
+        expect(described_class.find('foobar', database_id: 'barfoo')).to be_nil
+        expect(described_class.find('foobar', database_id: form.app_id)).to be_nil
+      end
+    end
+  end
+
   describe '.new' do
     it 'should pass all params except form to super' do
       form = TaskHelper::Form.all.first

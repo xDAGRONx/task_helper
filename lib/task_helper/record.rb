@@ -2,6 +2,12 @@ module TaskHelper
   class Record < Base
     data_member :app_id, :entity_id, :approved, :values
 
+    def self.find(id, database_id:)
+      if response = get(route: "apps/#{database_id}/dtypes/#{id}.json")
+        new response['record'] if response['record']
+      end
+    end
+
     def initialize(args = {}, form: nil, **params)
       @form = form
       super(args.merge(params))
